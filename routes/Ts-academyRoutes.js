@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
+const registerAuth = require("../middlewares/registerAuth");
+const allowRoles = require("../middleware/allowRoles");
+
 const {
   createBackendBook, getBackendBooks, getBackendBook, updateBackendBook, deleteBackendBook,
   createFrontendBook, getFrontendBooks, getFrontendBook, updateFrontendBook, deleteFrontendBook,
@@ -8,39 +12,119 @@ const {
   createSoftwareDevelopmentBook, getSoftwareDevelopmentBooks, getSoftwareDevelopmentBook, updateSoftwareDevelopmentBook, deleteSoftwareDevelopmentBook
 } = require("../controllers/Ts-academyController");
 
-// --- BACKEND ---
-router.post("/backend", createBackendBook);
+
+// ===== BACKEND =====
+router.post(
+  "/backend",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  createBackendBook
+);
 router.get("/backend", getBackendBooks);
 router.get("/backend/:id", getBackendBook);
-router.put("/backend/:id", updateBackendBook);
-router.delete("/backend/:id", deleteBackendBook);
+router.put(
+  "/backend/:id",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  updateBackendBook
+);
+router.delete(
+  "/backend/:id",
+  registerAuth,
+  allowRoles("admin"),
+  deleteBackendBook
+);
 
-// --- FRONTEND ---
-router.post("/frontend", createFrontendBook);
+
+// ===== FRONTEND =====
+router.post(
+  "/frontend",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  createFrontendBook
+);
 router.get("/frontend", getFrontendBooks);
 router.get("/frontend/:id", getFrontendBook);
-router.put("/frontend/:id", updateFrontendBook);
-router.delete("/frontend/:id", deleteFrontendBook);
+router.put(
+  "/frontend/:id",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  updateFrontendBook
+);
+router.delete(
+  "/frontend/:id",
+  registerAuth,
+  allowRoles("admin"),
+  deleteFrontendBook
+);
 
-// --- AI AUTOMATION ---
-router.post("/ai-automation", createAI_AutomationBook);
+
+// ===== AI AUTOMATION =====
+router.post(
+  "/ai-automation",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  createAI_AutomationBook
+);
 router.get("/ai-automation", getAI_AutomationBooks);
 router.get("/ai-automation/:id", getAI_AutomationBook);
-router.put("/ai-automation/:id", updateAI_AutomationBook);
-router.delete("/ai-automation/:id", deleteAI_AutomationBook);
+router.put(
+  "/ai-automation/:id",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  updateAI_AutomationBook
+);
+router.delete(
+  "/ai-automation/:id",
+  registerAuth,
+  allowRoles("admin"),
+  deleteAI_AutomationBook
+);
 
-// --- DEVOPS ---
-router.post("/devops", createDevOpsBook);
+
+// ===== DEVOPS =====
+router.post(
+  "/devops",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  createDevOpsBook
+);
 router.get("/devops", getDevOpsBooks);
 router.get("/devops/:id", getDevOpsBook);
-router.put("/devops/:id", updateDevOpsBook);
-router.delete("/devops/:id", deleteDevOpsBook);
+router.put(
+  "/devops/:id",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  updateDevOpsBook
+);
+router.delete(
+  "/devops/:id",
+  registerAuth,
+  allowRoles("admin"),
+  deleteDevOpsBook
+);
 
-// --- SOFTWARE DEVELOPMENT ---
-router.post("/software", createSoftwareDevelopmentBook);
+
+// ===== SOFTWARE DEVELOPMENT =====
+router.post(
+  "/software",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  createSoftwareDevelopmentBook
+);
 router.get("/software", getSoftwareDevelopmentBooks);
 router.get("/software/:id", getSoftwareDevelopmentBook);
-router.put("/software/:id", updateSoftwareDevelopmentBook);
-router.delete("/software/:id", deleteSoftwareDevelopmentBook);
+router.put(
+  "/software/:id",
+  registerAuth,
+  allowRoles("admin", "teacher"),
+  updateSoftwareDevelopmentBook
+);
+router.delete(
+  "/software/:id",
+  registerAuth,
+  allowRoles("admin"),
+  deleteSoftwareDevelopmentBook
+);
 
 module.exports = router;
