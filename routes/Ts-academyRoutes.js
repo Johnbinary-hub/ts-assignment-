@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const registerAuth = require("../middlewares/registerAuth");
-const allowRoles = require("../middleware/allowRoles");
+const allowRoles = require("../middlewares/role");
 
 const {
   createBackendBook, getBackendBooks, getBackendBook, updateBackendBook, deleteBackendBook,
