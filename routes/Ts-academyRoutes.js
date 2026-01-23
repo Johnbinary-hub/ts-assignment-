@@ -1,29 +1,31 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-
-const registerAuth = require("../middlewares/registerAuth");
-const allowRoles = require("../middlewares/role");
-
-const {
+import upload from "../middlewares/imageUpload.js";
+import cloudinaryConfig from "../Config/cloudinaryConfig.js";
+import registerAuth from "../middlewares/registerAuth.js";
+import allowRoles from "../middlewares/role.js";
+import {
   createBackendBook, getBackendBooks, getBackendBook, updateBackendBook, deleteBackendBook,
   createFrontendBook, getFrontendBooks, getFrontendBook, updateFrontendBook, deleteFrontendBook,
   createAI_AutomationBook, getAI_AutomationBooks, getAI_AutomationBook, updateAI_AutomationBook, deleteAI_AutomationBook,
   createDevOpsBook, getDevOpsBooks, getDevOpsBook, updateDevOpsBook, deleteDevOpsBook,
   createSoftwareDevelopmentBook, getSoftwareDevelopmentBooks, getSoftwareDevelopmentBook, updateSoftwareDevelopmentBook, deleteSoftwareDevelopmentBook
-} = require("../controllers/Ts-academyController");
+} from "../controllers/Ts-academyController.js";
 
 
 // ===== BACKEND =====
 router.post(
   "/backend",
-  registerAuth,
-  allowRoles("admin", "teacher"),
+  // registerAuth,
+  // allowRoles("admin", "teacher"),
+  upload.single("image"),
   createBackendBook
 );
 router.get("/backend", getBackendBooks);
 router.get("/backend/:id", getBackendBook);
 router.put(
   "/backend/:id",
+  upload.single("image"),
   registerAuth,
   allowRoles("admin", "teacher"),
   updateBackendBook
@@ -41,6 +43,7 @@ router.post(
   "/frontend",
   registerAuth,
   allowRoles("admin", "teacher"),
+  upload.single("image"),
   createFrontendBook
 );
 router.get("/frontend", getFrontendBooks);
@@ -127,4 +130,4 @@ router.delete(
   deleteSoftwareDevelopmentBook
 );
 
-module.exports = router;
+export default router;

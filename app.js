@@ -1,6 +1,10 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import bookRoutes from "./routes/Ts-academyRoutes.js";
+
+
+console.log("apiKey:", process.env.api_key); // Debug log
 
 const app = express();
 
@@ -12,7 +16,7 @@ app.use((req, res, next) => {
 
 
 app.use(cors({
-  origin: ["http://127.0.0.1:5500", "http://localhost:3000"], 
+  origin: ["http://127.0.0.1:5500", "http://localhost:3000"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -21,7 +25,6 @@ app.use(cors({
 app.use(express.json());
 
 
-const bookRoutes = require("./routes/Ts-academyRoutes");
 app.use("/student", bookRoutes);
 
 mongoose.connect("mongodb://127.0.0.1:27017/Ts-academy")
@@ -35,5 +38,5 @@ app.use((err, req, res, next) => {
 });
 
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+export default app;   

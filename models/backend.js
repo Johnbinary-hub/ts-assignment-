@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
   name: {
@@ -28,7 +28,7 @@ const bookSchema = new mongoose.Schema({
   },
   enrollmentDate: {
     type: Date,
-    required: true
+    
   },
   address: {
     type: String,
@@ -36,12 +36,20 @@ const bookSchema = new mongoose.Schema({
   },
 gender: {
     type: String,
-    enum: ["Male", "Female", "Other"],
+    enum: ["Male", "male", "female", "Female", "Other"],
     required: true
 },
 dateOfBirth: {
     type: Date,
     required: true
+  },
+
+  image: {
+    type: String,
+    required: true
+  },
+  imageId: {
+    type: String
   },
   additionalInfo: {
     type: String
@@ -49,7 +57,8 @@ dateOfBirth: {
   dateCreated: {
     type: Date,
     default: Date.now
-  }
+  },
+
 });
 
-module.exports = mongoose.model("backend", bookSchema);
+export default mongoose.model("backend", bookSchema);

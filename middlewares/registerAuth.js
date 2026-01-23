@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 function registerAuth(req, res, next) {
   // 1️⃣ Get Authorization header
@@ -27,4 +27,4 @@ function registerAuth(req, res, next) {
   }
 }
 
-module.exports = registerAuth;
+export default registerAuth;

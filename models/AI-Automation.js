@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
   name: {
@@ -43,6 +43,13 @@ dateOfBirth: {
     type: Date,
     required: true
   },
+  image: {
+    type: String,
+    required: true
+  },
+  imageId: {
+    type: String
+  },
   additionalInfo: {
     type: String
   },
@@ -52,4 +59,4 @@ dateOfBirth: {
   }
 });
 
-module.exports = mongoose.model("AI-Automation", bookSchema);
+export default mongoose.model("AI-Automation", bookSchema);
